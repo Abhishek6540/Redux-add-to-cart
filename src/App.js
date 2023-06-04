@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Cart from './Cart';
+import Products from "./Products";
+import { useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-function App() {
+const App = () => {
+
+  const getState = useSelector((state) => state);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    
+      <Navbar bg="light" expand="lg" variant="light">
+        <Container>
+               <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <div className="h4" style={{marginRight:"2000px"}} ><Link to ="/Cart">
+              <Badge badgeContent={getState.length} color="primary">
+             <ShoppingCartIcon fontSize='large'  />
+          </Badge>
+          </Link>
+          </div>
+           </Nav>
+        </Container>
+      </Navbar>
+
+
+      <Routes>
+
+        <Route exact path="/" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
+
+      </Routes>
+
+    </>
+
   );
 }
 
-export default App;
+export default App;
